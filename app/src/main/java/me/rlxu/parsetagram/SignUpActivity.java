@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.parse.LogInCallback;
 import com.parse.ParseException;
@@ -18,7 +19,7 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText usernameInput;
     private EditText emailInput;
     private EditText passwordInput;
-    private Button signupBtn;
+    private Button signUpBtn;
     private Button loginBtn;
 
     @Override
@@ -31,7 +32,7 @@ public class SignUpActivity extends AppCompatActivity {
         usernameInput = findViewById(R.id.username_et);
         emailInput = findViewById(R.id.email_et);
         passwordInput = findViewById(R.id.password_et);
-        signupBtn = findViewById(R.id.signup_btn);
+        signUpBtn = findViewById(R.id.signup_btn);
         loginBtn = findViewById(R.id.btnLogin);
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
@@ -42,7 +43,7 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-        signupBtn.setOnClickListener(new View.OnClickListener() {
+        signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final String username = usernameInput.getText().toString();
@@ -72,6 +73,7 @@ public class SignUpActivity extends AppCompatActivity {
                 } else {
                     // Sign up didn't succeed. Look at the ParseException
                     // to figure out what went wrong
+                    Toast.makeText(getApplicationContext(), "Please fill out all fields", Toast.LENGTH_SHORT).show();
                     Log.d("SignUpActivity", "Sign up failed");
                     e.printStackTrace();
                 }
