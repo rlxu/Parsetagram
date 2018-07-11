@@ -3,13 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="10dp"
     tools:context=".ComposeFragment">
 
-
-    <TextView
-        android:id="@+id/tvCompose"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/btnTakePhoto"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Compose stuff here" />
+        android:background="@drawable/button_style_login"
+        android:text="Take Photo"
+        android:layout_gravity="center_vertical"
+        android:textColor="@color/white" />
 
 </FrameLayout>

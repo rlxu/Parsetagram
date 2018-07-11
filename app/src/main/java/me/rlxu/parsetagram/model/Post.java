@@ -6,6 +6,11 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 @ParseClassName("Post")
 public class Post extends ParseObject {
     private static final String KEY_DESCRIPTION = "description";
@@ -36,6 +41,13 @@ public class Post extends ParseObject {
         put(KEY_USER, user);
     }
 
+    public String getCreatedTime() {
+        Date date = getCreatedAt();
+        DateFormat df = new SimpleDateFormat("MMM d", Locale.getDefault());
+        DateFormat df2 = new SimpleDateFormat("hh:mm aaa", Locale.getDefault());
+        return df.format(date) + " at " + df2.format(date);
+    }
+
     public static class Query extends ParseQuery<Post> {
         public Query() {
             super(Post.class);
@@ -51,4 +63,5 @@ public class Post extends ParseObject {
             return this;
         }
     }
+
 }
