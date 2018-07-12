@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.parse.ParseImageView;
 import com.parse.ParseUser;
 
@@ -45,8 +46,18 @@ public class ProfileFragment extends Fragment {
         tvUsername.setText(currentUser.getUsername());
         tvEmail.setText(currentUser.getEmail());
 
-        ivProfilePic.setParseFile(currentUser.getParseFile("profilePic"));
-        ivProfilePic.loadInBackground();
+        Glide.with(this)
+                .load(currentUser.getParseFile("profilePic").getUrl())
+                .centerCrop()
+                .into(ivProfilePic);
+
+        // click listener for change profile button
+        btnChangeProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.onLaunchCameraProfile(v);
+            }
+        });
 
         // click listener for logout button
         logoutButton.setOnClickListener(new View.OnClickListener() {
@@ -89,5 +100,6 @@ public class ProfileFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         void logoutInteraction();
+        void onLaunchCameraProfile(View v);
     }
 }

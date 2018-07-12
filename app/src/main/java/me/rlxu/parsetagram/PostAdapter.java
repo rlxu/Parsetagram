@@ -47,8 +47,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
         Glide.with(context)
                 .load(post.getImage().getUrl()).into(holder.ivPostImage);
-        holder.ivProfilePic.setParseFile(post.getUser().getParseFile("profilePic"));
-        holder.ivProfilePic.loadInBackground();
+        Glide.with(context)
+                .load(post.getUser().getParseFile("profilePic").getUrl())
+                .centerCrop()
+                .into(holder.ivProfilePic);
     }
 
     @Override
