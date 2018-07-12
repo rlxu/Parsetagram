@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         // implement persistence login
         ParseUser currentUser = ParseUser.getCurrentUser();
         if (currentUser != null) {
-            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+            Intent intent = new Intent(MainActivity.this, FinalHomeActivity.class);
             startActivity(intent);
         } else {
             setContentView(R.layout.activity_main);
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
             public void done(ParseUser user, ParseException e) {
                 if (e == null) {
                     Log.d("LoginActivity", "Login successful!");
-                    final Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                    final Intent intent = new Intent(MainActivity.this, FinalHomeActivity.class);
                     startActivity(intent);
                     finish();
                 } else {

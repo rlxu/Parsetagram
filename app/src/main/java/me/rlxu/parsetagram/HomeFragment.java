@@ -45,7 +45,7 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         context = getActivity();
         // Lookup the swipe container view
-        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
+        swipeContainer = view.findViewById(R.id.swipeContainer);
 
         rvPosts = view.findViewById(R.id.rvPosts);
         posts = new ArrayList<>();

@@ -87,7 +87,7 @@ public class SignUpActivity extends AppCompatActivity {
             public void done(ParseUser user, ParseException e) {
                 if (e == null) {
                     Log.d("SignInActivity", "Login successful!");
-                    final Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
+                    final Intent intent = new Intent(SignUpActivity.this, FinalHomeActivity.class);
                     startActivity(intent);
                     finish();
                 } else {

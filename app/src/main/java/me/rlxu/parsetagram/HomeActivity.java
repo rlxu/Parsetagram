@@ -20,6 +20,8 @@ import java.util.List;
 
 import me.rlxu.parsetagram.model.Post;
 
+/* Test activity to implement posting and retrieving data */
+
 public class HomeActivity extends AppCompatActivity {
 
     private static final String imagePath = "/storage/emulated/0/DCIM/Camera/IMG_20180709_220301.jpg";

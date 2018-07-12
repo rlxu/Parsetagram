@@ -7,11 +7,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
+
+import com.parse.ParseImageView;
+import com.parse.ParseUser;
 
 public class ProfileFragment extends Fragment {
 
+    private ParseUser currentUser;
     private OnFragmentInteractionListener mListener;
     private Button logoutButton;
+    private ParseImageView ivProfilePic;
+    private Button btnChangeProfile;
+    private TextView tvUsername;
+    private TextView tvEmail;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -27,6 +36,17 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         logoutButton = view.findViewById(R.id.btnLogout);
+        ivProfilePic = view.findViewById(R.id.ivProfilePic);
+        btnChangeProfile = view.findViewById(R.id.btnChangeProfile);
+        tvUsername = view.findViewById(R.id.tvUsername);
+        tvEmail = view.findViewById(R.id.tvEmail);
+
+        currentUser = ParseUser.getCurrentUser();
+        tvUsername.setText(currentUser.getUsername());
+        tvEmail.setText(currentUser.getEmail());
+
+        ivProfilePic.setParseFile(currentUser.getParseFile("profilePic"));
+        ivProfilePic.loadInBackground();
 
         // click listener for logout button
         logoutButton.setOnClickListener(new View.OnClickListener() {
