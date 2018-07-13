@@ -1,8 +1,9 @@
-package me.rlxu.parsetagram;
+package me.rlxu.parsetagram.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +11,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.parse.ParseFile;
 import com.parse.ParseImageView;
 import com.parse.ParseUser;
+
+import me.rlxu.parsetagram.R;
 
 public class ProfileFragment extends Fragment {
 
@@ -45,11 +49,28 @@ public class ProfileFragment extends Fragment {
         currentUser = ParseUser.getCurrentUser();
         tvUsername.setText(currentUser.getUsername());
         tvEmail.setText(currentUser.getEmail());
+        ParseFile image = currentUser.getParseFile("profilePic");
 
-        Glide.with(this)
-                .load(currentUser.getParseFile("profilePic").getUrl())
-                .centerCrop()
-                .into(ivProfilePic);
+        if (image != null) {
+            Glide.with(this)
+                    .load(image.getUrl())
+                    .centerCrop()
+                    .into(ivProfilePic);
+        }
+
+        ivProfilePic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String username = currentUser.getUsername();
+                String imagePath = currentUser.getParseFile("profilePic").getUrl();
+                // lead to user profile with posts when profile picture is clicked
+                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                UserPostsFragment userFragment = UserPostsFragment.newInstance(username, imagePath, null);
+                //Create a bundle to pass data, add data, set the bundle to your fragment and:
+                activity.getSupportFragmentManager().beginTransaction().
+                        replace(R.id.flContainer, userFragment).addToBackStack(null).commit();
+            }
+        });
 
         // click listener for change profile button
         btnChangeProfile.setOnClickListener(new View.OnClickListener() {

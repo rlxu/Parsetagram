@@ -1,4 +1,4 @@
-package me.rlxu.parsetagram;
+package me.rlxu.parsetagram.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -29,6 +29,12 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import me.rlxu.parsetagram.BitmapScaler;
+import me.rlxu.parsetagram.fragment.ComposeFragment;
+import me.rlxu.parsetagram.fragment.ComposePreviewFragment;
+import me.rlxu.parsetagram.fragment.HomeFragment;
+import me.rlxu.parsetagram.fragment.ProfileFragment;
+import me.rlxu.parsetagram.R;
 import me.rlxu.parsetagram.model.Post;
 
 public class FinalHomeActivity extends AppCompatActivity implements

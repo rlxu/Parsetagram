@@ -1,4 +1,4 @@
-package me.rlxu.parsetagram;
+package me.rlxu.parsetagram.fragment;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -23,6 +23,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
+import me.rlxu.parsetagram.BitmapScaler;
+import me.rlxu.parsetagram.R;
 
 public class ComposePreviewFragment extends Fragment {
 

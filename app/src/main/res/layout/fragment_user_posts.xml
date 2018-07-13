@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="5dp"
+    tools:context=".fragment.UserPostsFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="top">
+
+        <com.parse.ParseImageView
+            android:id="@+id/ivProfilePic"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="20dp"
+            android:foreground="@drawable/circle_profile_small"
+            app:srcCompat="@android:color/darker_gray" />
+
+        <TextView
+            android:id="@+id/tvUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="-5dp"
+            android:layout_marginTop="34dp"
+            android:layout_toEndOf="@+id/ivProfilePic"
+            android:text="TextView"
+            android:textColor="@color/grey_8"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvNumPosts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tvUsername"
+            android:layout_toStartOf="@+id/tvPosts"
+            android:text="123"
+            android:textStyle="bold"
+            android:textColor="@color/grey_8"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+        <TextView
+            android:id="@+id/tvPosts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/tvUsername"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="5dp"
+            android:text="posts" />
+
+        <View
+            android:id="@+id/theLine"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/ivProfilePic"
+            android:layout_marginBottom="10dp"
+            android:background="@color/grey_5" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvGridPosts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/theLine"
+            android:layout_centerVertical="true" />
+
+    </RelativeLayout>
+
+</FrameLayout>

@@ -1,4 +1,4 @@
-package me.rlxu.parsetagram;
+package me.rlxu.parsetagram.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,8 @@ import android.widget.Toast;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
+
+import me.rlxu.parsetagram.R;
 
 public class MainActivity extends AppCompatActivity {
 

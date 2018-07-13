@@ -1,4 +1,4 @@
-package me.rlxu.parsetagram;
+package me.rlxu.parsetagram.fragment;
 
 import android.content.Context;
 import android.net.Uri;
@@ -18,6 +18,8 @@ import com.parse.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.rlxu.parsetagram.adapter.PostAdapter;
+import me.rlxu.parsetagram.R;
 import me.rlxu.parsetagram.model.Post;
 
 public class HomeFragment extends Fragment {

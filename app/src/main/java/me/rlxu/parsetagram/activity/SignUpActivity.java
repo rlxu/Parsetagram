@@ -1,4 +1,4 @@
-package me.rlxu.parsetagram;
+package me.rlxu.parsetagram.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,8 @@ import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
+
+import me.rlxu.parsetagram.R;
 
 public class SignUpActivity extends AppCompatActivity {
 

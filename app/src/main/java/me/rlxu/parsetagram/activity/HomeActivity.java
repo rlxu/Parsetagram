@@ -1,4 +1,4 @@
-package me.rlxu.parsetagram;
+package me.rlxu.parsetagram.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +18,7 @@ import com.parse.SaveCallback;
 import java.io.File;
 import java.util.List;
 
+import me.rlxu.parsetagram.R;
 import me.rlxu.parsetagram.model.Post;
 
 /* Test activity to implement posting and retrieving data */

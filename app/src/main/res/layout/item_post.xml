@@ -11,7 +11,9 @@
         android:layout_height="40dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginRight="5dp"
+        android:layout_marginEnd="5dp"
+        android:clickable="true"
+        android:focusable="true"
         android:foreground="@drawable/circle_profile_small" />
 
     <TextView
@@ -22,6 +24,7 @@
         android:layout_marginTop="11dp"
         android:layout_toEndOf="@+id/ivProfilePic"
         android:textStyle="bold"
+        android:textColor="@color/grey_8"
         android:text="username" />
 
     <com.parse.ParseImageView
@@ -36,37 +39,34 @@
         android:scaleType="fitXY"
         app:srcCompat="@android:color/darker_gray" />
 
-    <TextView
-        android:id="@+id/tvPostText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/ivPostImage"
-        android:layout_marginBottom="5dp"
-        android:text="Some caption about the image" />
-
     <ImageView
         android:id="@+id/ivFavorite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/tvPostText"
+        android:layout_below="@+id/ivPostImage"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_marginStart="3dp"
         app:srcCompat="@drawable/ic_heart" />
 
     <ImageView
         android:id="@+id/ivComment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvPostText"
+        android:layout_below="@+id/ivPostImage"
         android:layout_toEndOf="@+id/ivFavorite"
+        android:clickable="true"
+        android:focusable="true"
         app:srcCompat="@drawable/ic_comment" />
 
     <ImageView
         android:id="@+id/ivSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvPostText"
-        android:layout_alignParentRight="true"
+        android:layout_below="@+id/ivPostImage"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="5dp"
         app:srcCompat="@drawable/ic_save" />
 
     <TextView
@@ -76,5 +76,53 @@
         android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/tvUsername"
         android:text="5h ago" />
+
+    <TextView
+        android:id="@+id/tvNumLikes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/ivFavorite"
+        android:layout_margin="5dp"
+        android:textStyle="bold"
+        android:textColor="@color/grey_8"
+        android:text="1,234 likes" />
+
+    <TextView
+        android:id="@+id/tvPostText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvNumLikes"
+        android:layout_toEndOf="@+id/tvUsername2"
+        android:text="Some caption about the image"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:textColor="@color/grey_7" />
+
+    <TextView
+        android:id="@+id/tvUsername2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tvNumLikes"
+        android:layout_margin="5dp"
+        android:textStyle="bold"
+        android:textColor="@color/grey_8"
+        android:text="username" />
+
+    <Button
+        android:id="@+id/btnViewComments"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tvPostText"
+        android:text="View all comments"
+        android:background="@android:color/transparent"
+        android:minHeight="0dp"
+        android:minWidth="0dp"
+        android:textColor="@color/grey_6"
+        android:layout_marginStart="5dp"
+        android:layout_marginBottom="10dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
 </RelativeLayout>
