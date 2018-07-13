@@ -1,9 +1,11 @@
 package me.rlxu.parsetagram.adapter;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,17 +14,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.parse.FindCallback;
+import com.parse.ParseException;
 import com.parse.ParseImageView;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import java.util.List;
 
 import me.rlxu.parsetagram.R;
 import me.rlxu.parsetagram.fragment.UserPostsFragment;
+import me.rlxu.parsetagram.model.Activity;
 import me.rlxu.parsetagram.model.Post;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     List<Post> mPosts;
     Context context;
+    int numLikes;
+    boolean userLiked = false;
 
     // pass in Posts array into constructor
     public PostAdapter(List<Post> posts) {
@@ -51,13 +60,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.tvPostText.setText(post.getDescription());
         holder.tvTimeStamp.setText(post.getCreatedTime());
 
-        /* TODO: query for likes and comments
-            int numLikes: total likes for post
-            - display number on textView
-            boolean ifLiked: if current user is in likes for post
-            - set heart icon color
-            query for comments after view comments is clicked
-         */
+        if (userLiked) {
+            Drawable icon = context.getResources().getDrawable(R.drawable.ic_heart_active);
+            holder.btnLike.setImageDrawable(icon);
+        } else {
+            Drawable icon = context.getResources().getDrawable(R.drawable.ic_heart);
+            holder.btnLike.setImageDrawable(icon);
+        }
+        getPostLikes(position, holder.tvNumLikes, holder.btnLike);
 
         Glide.with(context)
                 .load(post.getImage().getUrl()).into(holder.ivPostImage);
@@ -115,13 +125,17 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 }
             });
 
-            /* TODO: add onClickListeners for Like and Comment
-                ivFavorite: makes/removes activity of like associated with current user
-                - update icon and number
-                ivComment: takes user to comment editor fragment and allows them to compose
-                btnViewComments: takes user to comment view fragment to see all comments
-                                 in a recycler view fashion
-             */
+            btnLike.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = getAdapterPosition();
+                    if (userLiked) {
+                        removeLike(mPosts.get(pos));
+                    } else {
+                        addLike(mPosts.get(pos));
+                    }
+                }
+            });
 
             itemView.setOnClickListener(this);
         }
@@ -129,6 +143,48 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         @Override
         public void onClick(View v) {
             // do some stuff here if desired
+        }
+
+        private void removeLike(Post post) {
+            final Activity.Query likesQuery = new Activity.Query();
+            likesQuery.whereEqualTo("post", post);
+            likesQuery.whereEqualTo("user", ParseUser.getCurrentUser());
+            likesQuery.findInBackground(new FindCallback<Activity>() {
+                @Override
+                public void done(List<Activity> results, ParseException e) {
+                    if (e == null) {
+                        for (Activity like : results) {
+                            like.deleteInBackground();
+                            numLikes -= 1;
+                            notifyDataSetChanged();
+                            userLiked = false;
+                        }
+                    } else {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
+
+        private void addLike(Post post) {
+            final Activity activity = new Activity();
+            activity.setType("like");
+            activity.setUser(ParseUser.getCurrentUser());
+            activity.setPost(post);
+
+            activity.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                    if (e == null) {
+                        Log.d("FinalHomeActivity", "Like added successfully!");
+                        numLikes += 1;
+                        notifyDataSetChanged();
+                        userLiked = true;
+                    } else {
+                        e.printStackTrace();
+                    }
+                }
+            });
         }
     }
 
@@ -142,5 +198,40 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     public void addAll(List<Post> list) {
         mPosts.addAll(list);
         notifyDataSetChanged();
+    }
+
+    private void getPostLikes(int position, final TextView tvNumLikes, final ImageView btnLike) {
+        final Activity.Query likesQuery = new Activity.Query();
+        likesQuery.whereEqualTo("post", mPosts.get(position));
+        likesQuery.findInBackground(new FindCallback<Activity>() {
+            @Override
+            public void done(List<Activity> objects, ParseException e) {
+                if (e == null) {
+                    // set numLikes and if user has liked
+                    numLikes = 0;
+                    userLiked = false;
+                    for (int i = 0; i < objects.size(); i++) {
+                        Activity item = objects.get(i);
+                        if (item.getType().equals("like")) {
+                            numLikes += 1;
+                            if (item.getUser().getObjectId().equals(ParseUser.getCurrentUser().getObjectId())) {
+                                userLiked = true;
+                            }
+                        }
+                    }
+                    // set data into post view
+                    tvNumLikes.setText(Integer.toString(numLikes) + " likes");
+                    if (userLiked) {
+                        Drawable icon = context.getResources().getDrawable(R.drawable.ic_heart_active);
+                        btnLike.setImageDrawable(icon);
+                    } else {
+                        Drawable icon = context.getResources().getDrawable(R.drawable.ic_heart);
+                        btnLike.setImageDrawable(icon);
+                    }
+                } else {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 }
