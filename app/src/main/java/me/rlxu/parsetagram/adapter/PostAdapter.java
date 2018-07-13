@@ -51,6 +51,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.tvPostText.setText(post.getDescription());
         holder.tvTimeStamp.setText(post.getCreatedTime());
 
+        /* TODO: query for likes and comments
+            int numLikes: total likes for post
+            - display number on textView
+            boolean ifLiked: if current user is in likes for post
+            - set heart icon color
+            query for comments after view comments is clicked
+         */
+
         Glide.with(context)
                 .load(post.getImage().getUrl()).into(holder.ivPostImage);
         Glide.with(context)
@@ -107,12 +115,20 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 }
             });
 
+            /* TODO: add onClickListeners for Like and Comment
+                ivFavorite: makes/removes activity of like associated with current user
+                - update icon and number
+                ivComment: takes user to comment editor fragment and allows them to compose
+                btnViewComments: takes user to comment view fragment to see all comments
+                                 in a recycler view fashion
+             */
+
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            // do some stuff here later
+            // do some stuff here if desired
         }
     }
 
