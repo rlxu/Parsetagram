@@ -23,6 +23,7 @@ import com.parse.SaveCallback;
 import java.util.List;
 
 import me.rlxu.parsetagram.R;
+import me.rlxu.parsetagram.fragment.CommentFragment;
 import me.rlxu.parsetagram.fragment.UserPostsFragment;
 import me.rlxu.parsetagram.model.Activity;
 import me.rlxu.parsetagram.model.Post;
@@ -138,6 +139,22 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             });
 
             itemView.setOnClickListener(this);
+
+            btnViewComments.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = getAdapterPosition();
+                    if (pos != RecyclerView.NO_POSITION) {
+                        Post post = mPosts.get(pos);
+                        // lead to user profile with posts when profile picture is clicked
+                        AppCompatActivity activity = (AppCompatActivity) itemView.getContext();
+                        CommentFragment cFragment = CommentFragment.newInstance(post);
+                        //Create a bundle to pass data, add data, set the bundle to your fragment and:
+                        activity.getSupportFragmentManager().beginTransaction().
+                                replace(R.id.flContainer, cFragment).addToBackStack(null).commit();
+                    }
+                }
+            });
         }
 
         @Override
